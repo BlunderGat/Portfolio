@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Пятнашки</title>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <div class="container">
+            <div class="game">
+            </div>
+        </div>
+    </body>
+    <script>
+        let square = {x:0,y:0, number:1}
+        let squares = [
+            {number:1},
+            {number:2},
+            {number:3},
+            {number:4},
+            {number:5},
+            {number:6},
+            {number:7},
+            {number:8},
+            {number:9},
+            {number:10},
+            {number:11},
+            {number:12},
+            {number:13},
+            {number:14},
+            {number:15},
+            {number:null},];
+        squares = shuffle(squares);
+        let game = document.getElementsByClassName('game')[0]
+        let j = -1
+        for ( let i = 0; i<squares.length; i++){
+            let square = document.createElement('div')
+            square.setAttribute('i',i)
+            let squareFull = document.createElement('div')
+            if (squares[i].number != null){
+                squareFull.classList.add('square-full')
+                squareFull.innerHTML = squares[i].number
+                squareFull.addEventListener('click', clickSquare)}
+            if (i%4 == 0){j++}
+            square.style.top = ((j * 72) +12) + 'px'
+            square.style.left = (((i-(j*4)) * 72) + 12) + 'px'
+            square.classList.add('square')
+            square.appendChild(squareFull)
+            game.appendChild(square)
+        }
+            function clickSquare(event){
+                let gamesItem = game.children
+                for (let i = 0; i<gamesItem.length;i++){
+                    let squareFull = gamesItem[i].children[0]
+                    let x,y = 0
+                    let temp
+                    let pointerX_1, pointerX_2,pointerY_1,pointerY_2,shiftX,shiftY = 0
+                    if (!squareFull.classList.contains('square-full')){
+                        pointerX_1 = gamesItem[i].style.left.substr(0,gamesItem[i].style.left.length-2)
+                        pointerX_2 = this.parentElement.style.left.substr(0,this.parentElement.style.left.length-2)
+                        shiftX = Math.abs(Number(pointerX_1) - Number(pointerX_2))
+                        pointerY_1 = gamesItem[i].style.top.substr(0,gamesItem[i].style.top.length-2)
+                        pointerY_2 = this.parentElement.style.top.substr(0,this.parentElement.style.top.length-2)
+                        shiftY = Math.abs(Number(pointerY_1) - Number(pointerY_2))
+                        if(!((shiftX == 72 && shiftY == 0)||(shiftX == 0 && shiftY == 72))){
+                            return false
+                        }
+                        temp = gamesItem[i].getAttribute('i')
+                        x = gamesItem[i].style.left
+                        y = gamesItem[i].style.top
+                        gamesItem[i].setAttribute('i',this.parentElement.getAttribute('i'))
+                        gamesItem[i].style.left = this.parentElement.style.left
+                        gamesItem[i].style.top = this.parentElement.style.top
+                        this.parentElement.setAttribute('i',temp)
+                        this.parentElement.style.left = x
+                        this.parentElement.style.top = y 
+                        if(gameEnd(gamesItem)){
+                            game.innerHTML = ''
+                            let end = document.createElement('div')
+                            end.classList.add('end-game')
+                            end.innerHTML = 'WIN'
+                            game.appendChild(end)
+                        }
+                    }  
+                }  
+            }
+
+            function gameEnd(items){
+                let j = 0;
+                for( let i = 0; i < items.length; i++){
+                    let tegI = Number(items[i].getAttribute('i')) + 1
+                    let tegVal = items[i].children[0].innerHTML
+                    if(tegI != 16 && tegI == tegVal){
+                        j++;
+                    }
+                }
+                return j == 15
+            }
+            function shuffle(arr){
+	            var j, temp;
+	            for(var i = arr.length - 1; i > 0; i--){
+		            j = Math.floor(Math.random()*(i + 1));
+		            temp = arr[j];
+		            arr[j] = arr[i];
+		            arr[i] = temp;
+	        }
+	        return arr;
+        }
+
+    </script>
+    <style>
+        body,html{
+            height: 100vh;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;  
+        }
+        .game{
+            width: 60px;
+            height: 60px;
+            position: relative;
+            user-select: none;   
+        }
+        .container{
+            height: 300px;
+            width: 300px;
+            background-color: greenyellow;
+            border-radius: 10px;
+        }
+        .square{
+            height: 60px;
+            width: 60px;
+            background-color:  rgb(87,192,24);
+            color: orange;
+            font-size: 3em;
+            text-align: center;
+            border-radius: 10px;
+            position: absolute;
+            transition: 0.5s ease-in-out;
+        }
+        .square-full{
+            background-color: green;
+            height: 60px;
+            width: 60px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .end-game{
+            height: 252px;
+            width: 252px;
+            background-color: green;
+            border-radius: 10px;
+            font-size: 5em;
+            color: orange;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            margin: 12px;   
+        }
+    </style>
+</html>
