@@ -1,0 +1,4 @@
+Терминал 1: 	bash OS_LIM_LAB6_SCRIPT.sh
+	Затем:
+Терминал 1: 	./OS_LIM_LAB6_1
+Терминал 2: 	./OS_LIM_LAB6_2

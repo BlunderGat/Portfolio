@@ -1,0 +1,3 @@
+OS_LIM_LAB3_1_SCRIPT.sh		берет аргумент 1 и запускает блокирующий pipe
+OS_LIM_LAB3_2_SCRIPT.sh		берет аргумент 2 и запускает неблокирующий pipe
+OS_LIM_LAB3_3_SCRIPT.sh		берет аргумент 3 и запускает неблокирующий pipe + fcntl

@@ -1,0 +1,1 @@
+Первый терминал: bash OS_LIM_LAB10V1_SCRIPT.sh

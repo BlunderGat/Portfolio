@@ -1,0 +1,5 @@
+Терминал 1: 	bash OS_LIM_LAB5_SCRIPT.sh
+	Затем:
+Терминал 1: 	./OS_LIM_LAB5_1
+Терминал 2: 	./OS_LIM_LAB5_2
+Терминал 3: 	tail -f shared.txt
